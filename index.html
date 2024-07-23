@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Ahmet Deger">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+    <title>Contacts</title>
+</head>
+<body>
+    <script>
+        let contactsDB = [
+            { slotNum: 0, name: 'Arnold'},
+            { slotNum: 1, name: "Sly"},
+            { slotNum: 2, name: "Dwayne"},
+            { slotNum: 3, name: "Vin"},
+            { slotNum: 4, name: "JCVD"},
+            { slotNum: 5, name: 'Steven'}
+        ]
+
+        var slotNum; // Declare a variable to store the slot number of the user
+        let again = true; // Declare a variable to control the loop
+
+        // Function to check if the user exists in the contactsDB
+        function checkUserExists(name) {
+            for (let i = 0; i < contactsDB.length; i++) {
+                if (contactsDB[i].name === name) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        // Function to get the slot number of the selected user
+        function selectSlotNum(name) {
+            for (let i = 0; i < contactsDB.length; i++) {
+                if (contactsDB[i].name === name) {
+                    slotNum = contactsDB[i].slotNum;
+                }
+            }
+            return -1;
+        }
+
+        while (again) {
+            let user = prompt("Please enter a name that you want to select: "); // Get the user's name
+            if (checkUserExists(user)) { // Check if the user exists in the contactsDB
+                selectSlotNum(user); // Get the slot number of the selected user
+                alert("You selected name.");
+            } else {
+                alert("The name " + user + " does not available."); // If the user does not exist in the contactsDB
+            }
+            again = confirm("Would you like enter another name?"); // Ask the user if they want to enter another name
+        }
+    </script>
+    <table>
+        <tr>
+            <th>Slot Number</th>
+            <th>Name</th>
+            <th>Selected Slot</th>
+        </tr>
+        <script>
+            for (let i = 0; i < contactsDB.length; i++) {
+                document.write("<tr>");
+                document.write("<td>" + contactsDB[i].slotNum + "</td>");
+                document.write("<td>" + contactsDB[i].name + "</td>");
+                if (contactsDB[i].slotNum === slotNum) {
+                    document.write("<td>Selected</td>");
+                } else {
+                    document.write("<td></td>");
+                }
+                document.write("</tr>");
+            }
+        </script>
+    </table>
+    <button onclick="location.reload()">Refresh</button>
+</body>
+</html>
